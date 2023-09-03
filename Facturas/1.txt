@@ -1,0 +1,16 @@
+
+--------------------------------------------------------------
+	FACTURA(ID Factura: 1)
+
+Cliente: julio
+Dirección cliente:dsd
+
+
+todoterreno(EXTRA piña  - SIN lechuga ) ->27500.0 ->1245 cal
+
+	Calorías totales: 1245
+	Precio neto: 27500.0
+	Precio tras descuento (0.0%) :27500.0
+	IVA(19%): 5225.0
+	Precio total: 32725.0
+--------------------------------------------------------------
