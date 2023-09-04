@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Pedido{
-	private int numeroPedidos;
+	private static int numeroPedidos;
 	private int idPedido;
 	private String nombreCliente;
 	private String direccionCliente;
@@ -16,7 +16,7 @@ public class Pedido{
 	public Pedido(String nombreCliente, String direccionCliente)
 	{
 		idCounter+=1;
-		this.numeroPedidos=idCounter;
+		Pedido.numeroPedidos=idCounter;
 		this.idPedido=idCounter;
 		this.nombreCliente=nombreCliente;
 		this.direccionCliente=direccionCliente;
