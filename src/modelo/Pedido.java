@@ -66,6 +66,10 @@ public class Pedido{
 	public void setDescuento(double value) {
 		this.descuento_cupon-=value;
 	}
+	//new
+	public List<Producto> getItemsPedido(){
+		return this.itemsPedido;
+	}
 	public void guardarFactura()
 	{
 		String texto_factura=generarTextoFactura();

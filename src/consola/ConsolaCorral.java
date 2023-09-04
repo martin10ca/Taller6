@@ -9,8 +9,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import modelo.Pedido;
+import modelo.Producto;
 import modelo.Restaurante;
 import modelo.Bebida;
 import modelo.Combo;
@@ -156,7 +160,9 @@ public class ConsolaCorral
 						}
 					restaurante.cerrarYGuardarPedido();
 					pedido.guardarFactura();
+					sortPedido(pedido);
 					pedidos.add(pedido);
+					checkPedidosRepetidos(pedidos);
 					System.out.println("Gracias por tu compra!");
 					resumenVentas();
 							
@@ -235,7 +241,44 @@ public class ConsolaCorral
 
 		System.out.println(p1+"\n"+p2+"\n"+p3);
 	}
-	
+	public void sortPedido(Pedido pedido) {
+		Collections.sort(pedido.getItemsPedido(), new Comparator<Producto>() {
+		    public int compare(Producto p1, Producto p2) {
+		        return p1.getNombre().compareTo(p2.getNombre());
+		    }
+		});
+	}
+	public void checkPedidosRepetidos(List<Pedido> pedidos) {
+		int idRepetido=-1;
+		Pedido lastPedido=pedidos.get(pedidos.size()-1);
+		List<Producto> itemsLastPedido=lastPedido.getItemsPedido();
+		for (Pedido pedidoAct:pedidos) {
+			if ((pedidoAct.getIdPedido()!=lastPedido.getIdPedido())&&(pedidoAct.getItemsPedido().size()==itemsLastPedido.size())) {
+				boolean esIdentico=true;
+				int pos=0;
+				for (Producto items: pedidoAct.getItemsPedido()) {
+					if (!items.getNombre().equals(itemsLastPedido.get(pos).getNombre())) {
+						esIdentico=false;
+						break;
+					}
+					else {
+						pos+=1;
+					}			
+				}	
+				if (esIdentico==true) {
+					idRepetido=pedidoAct.getIdPedido();
+					break;
+				}
+			}
+			
+		}
+		if (idRepetido>=0) {
+		System.out.println(">>>Este pedido es idéntido al pedido de ID: "+Integer.toString(idRepetido));
+		}
+		else {
+			System.out.println(">>>No hay ningún pedido idéntico al último");
+		}
+	}
 	private void eliminarCuponDeTXT(String lineaAEliminar) {
 	    String archivoOriginal = "./data/Cupones.txt";
 	    String archivoTemporal = "./data/CuponesTemp.txt";
